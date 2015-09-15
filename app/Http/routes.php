@@ -14,3 +14,23 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+ * Backend
+ */
+
+Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend'], function () {
+    Route::group(['as' => 'auth.', 'before' => 'auth', 'prefix' => 'auth'], function () {
+        Route::get('/login', [
+            'as' => 'login',
+            'uses' => 'AuthController@login'
+        ]);
+    });
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/', [
+            'as' => 'dashboard',
+            'uses' => 'DashboardController@index'
+        ]);
+    });
+});

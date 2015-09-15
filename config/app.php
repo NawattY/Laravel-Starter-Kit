@@ -145,6 +145,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * 3rd Party Packages
+         */
+        'Teepluss\Theme\ThemeServiceProvider',
     ],
 
     /*
@@ -194,6 +198,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
+        /*
+         * 3rd Party Packages
+         */
+        'Theme' => 'Teepluss\Theme\Facades\Theme',
     ],
 
 ];
