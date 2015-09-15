@@ -29,6 +29,8 @@ class AuthController extends BackendBaseController
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -64,6 +66,8 @@ class AuthController extends BackendBaseController
 
     public function login()
     {
-
+        $data = array();
+        $data['error'] = \Session::get('error');
+        return $this->theme->scope('auth.login', $data)->render();
     }
 }
