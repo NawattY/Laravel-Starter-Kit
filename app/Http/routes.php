@@ -18,19 +18,36 @@ Route::get('/', function () {
 /*
  * Backend
  */
+Route::group(['as' => 'auth.', 'prefix' => 'auth', 'namespace' => 'Auth'], function () {
+    Route::get('/login', [
+        'as' => 'login.get',
+        'uses' => 'AuthController@getLogin'
+    ]);
 
-Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend'], function () {
-    Route::group(['as' => 'auth.', 'before' => 'auth', 'prefix' => 'auth'], function () {
-        Route::get('/login', [
-            'as' => 'login',
-            'uses' => 'AuthController@login'
-        ]);
-    });
+    Route::post('/login', [
+        'as' => 'login.post',
+        'uses' => 'AuthController@postLogin'
+    ]);
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::get('/', [
-            'as' => 'dashboard',
-            'uses' => 'DashboardController@index'
-        ]);
-    });
+    Route::get('logout', array(
+        'as' => 'logout.get',
+        'uses' => 'AuthController@getLogout'
+    ));
+
+    Route::get('register', array(
+        'as' => 'register.get',
+        'uses' => 'AuthController@getRegister'
+    ));
+
+    Route::post('register', array(
+        'as' => 'register.post',
+        'uses' => 'AuthController@postRegister'
+    ));
+});
+
+Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => 'auth'], function () {
+    Route::get('/', [
+        'as' => 'dashboard.get',
+        'uses' => 'DashboardController@index'
+    ]);
 });

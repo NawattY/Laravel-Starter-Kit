@@ -50,7 +50,7 @@ class User extends Model implements AuthenticatableContract,
      * @param  String permission Slug of a permission (i.e: manage_user)
      * @return Boolean true if has permission, otherwise false
      */
-    public function can($permission = null)
+    public function isCan($permission = null)
     {
         return !is_null($permission) && $this->checkPermission($permission);
     }

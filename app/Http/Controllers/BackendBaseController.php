@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Theme;
 
 class BackendBaseController extends Controller
@@ -13,14 +12,14 @@ class BackendBaseController extends Controller
 
     public function __construct()
     {
-        if (get_class($this) == 'App\Http\Controllers\Backend\AuthController')
+        if (get_class($this) == 'App\Http\Controllers\Auth\AuthController')
         {
             $this->theme = Theme::uses('backend')->layout('auth');
         }
         else
         {
             $this->theme = Theme::uses('backend')->layout('backend');
-            $this->theme->breadcrumb()->add('Dashboard', route('admin.dashboard.index'));
+            $this->theme->breadcrumb()->add('Dashboard', route('backend.dashboard.get'));
         }
     }
 }

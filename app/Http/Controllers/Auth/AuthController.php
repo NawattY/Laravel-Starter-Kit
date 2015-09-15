@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Http\Controllers\BackendBaseController;
+use Redirect;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -22,6 +24,8 @@ class AuthController extends BackendBaseController
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
+    protected $redirectPath, $redirectTo, $redirectAfterLogout;
+
     /**
      * Create a new authentication controller instance.
      *
@@ -30,6 +34,10 @@ class AuthController extends BackendBaseController
     public function __construct()
     {
         parent::__construct();
+
+        $this->redirectPath = route('backend.dashboard.get');
+        $this->redirectTo = route('backend.dashboard.get');
+        $this->redirectAfterLogout = route('auth.login.get');
 
         $this->middleware('guest', ['except' => 'getLogout']);
     }
@@ -43,7 +51,8 @@ class AuthController extends BackendBaseController
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -58,16 +67,24 @@ class AuthController extends BackendBaseController
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
 
-    public function login()
+    public function getLogin()
     {
         $data = array();
         $data['error'] = \Session::get('error');
         return $this->theme->scope('auth.login', $data)->render();
+    }
+
+    public function getRegister()
+    {
+        $data = array();
+        $data['error'] = \Session::get('error');
+        return $this->theme->scope('auth.register', $data)->render();
     }
 }

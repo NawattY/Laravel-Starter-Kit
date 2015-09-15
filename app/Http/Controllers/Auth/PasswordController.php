@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Backend\BackendBaseController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends BackendBaseController

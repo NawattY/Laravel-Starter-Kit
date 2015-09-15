@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\BackendBaseController;
+
 class DashboardController extends BackendBaseController
 {
     /**
@@ -11,8 +13,7 @@ class DashboardController extends BackendBaseController
      */
     public function index()
     {
-        //
-        return 'Dashboard';
+        return $this->theme->scope('dashboard.index')->render();
     }
 
     /**
