@@ -1,6 +1,6 @@
 <div class="register-box">
     <div class="register-logo">
-        <a href="{{ route('backend.dashboard.get') }}"><b>Laravel5 Core</b> Backend</a>
+        <a href="{{ route('backend.dashboard.index.get') }}"><b>Laravel5 Core</b> Backend</a>
     </div>
 
     <div class="register-box-body">

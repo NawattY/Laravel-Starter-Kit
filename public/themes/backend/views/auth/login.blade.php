@@ -1,6 +1,6 @@
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ route('backend.dashboard.get') }}"><b>Laravel5 Core</b> Backend</a>
+        <a href="{{ route('backend.dashboard.index.get') }}"><b>Laravel5 Core</b> Backend</a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>

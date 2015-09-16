@@ -35,8 +35,8 @@ class AuthController extends BackendBaseController
     {
         parent::__construct();
 
-        $this->redirectPath = route('backend.dashboard.get');
-        $this->redirectTo = route('backend.dashboard.get');
+        $this->redirectPath = route('backend.dashboard.index.get');
+        $this->redirectTo = route('backend.dashboard.index.get');
         $this->redirectAfterLogout = route('auth.login.get');
 
         $this->middleware('guest', ['except' => 'getLogout']);

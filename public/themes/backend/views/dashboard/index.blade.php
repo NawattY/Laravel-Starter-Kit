@@ -21,9 +21,11 @@
             </div>
         </div>
         <div class="box-body">
-            Start creating your amazing application!
             <p>
-                <a href="{{ url('') }}"
+                <a href="{{ url('/themes/backend/assets/AdminLTE/') }}">AdminLTE</a>
+            </p>
+            <p>
+                <a href="{{ url('/themes/backend/assets/AdminLTE/documentation/') }}">AdminLTE Document</a>
             </p>
         </div><!-- /.box-body -->
         <div class="box-footer">

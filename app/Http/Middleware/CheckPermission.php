@@ -23,7 +23,8 @@ class CheckPermission
                 return $next($request);
             }
 
-            return $request->ajax ? response('Unauthorized.', 401) : abort(401, "Permission denied!");
+            return $request->ajax ? response('Unauthorized.', 401) : redirect()->route('backend.error.index.get', ['401', 'unauthorized']);
+            ;
         }
     }
 

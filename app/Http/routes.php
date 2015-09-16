@@ -47,7 +47,32 @@ Route::group(['as' => 'auth.', 'prefix' => 'auth', 'namespace' => 'Auth'], funct
 
 Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => ['auth', 'acl']], function () {
     Route::get('/', [
-        'as' => 'dashboard.get',
+        'as' => 'dashboard.index.get',
         'uses' => 'DashboardController@index'
     ]);
+
+    /*
+     * Error page
+     */
+    Route::group(['as' => 'error.', 'prefix' => 'error'], function () {
+        Route::get('/{code}/{msg}', [
+            'as' => 'index.get',
+            'uses' => 'ErrorController@index'
+        ]);
+    });
+
+    /*
+     * Member Management
+     */
+    Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+        Route::get('/', [
+            'as' => 'index.get',
+            'uses' => 'UserController@index'
+        ]);
+
+        Route::get('/create', [
+            'as' => 'create.get',
+            'uses' => 'UserController@create'
+        ]);
+    });
 });

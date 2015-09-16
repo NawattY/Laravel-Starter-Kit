@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('/themes/backend/assets/AdminLTE/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('/themes/backend/assets/AdminLTE/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/themes/backend/assets/AdminLTE/dist/css/skins/skin-black.min.css') }}">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -46,10 +46,6 @@
 <script src="{{ asset('/themes/backend/assets/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="{{ asset('/themes/backend/assets/AdminLTE/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- Slimscroll -->
-<script src="{{ asset('/themes/backend/assets/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ asset('/themes/backend/assets/AdminLTE/plugins/fastclick/fastclick.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('/themes/backend/assets/AdminLTE/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->

@@ -25,13 +25,20 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="<?php if(str_is('backend.dashboard.*', Route::currentRouteName())) { echo 'active'; } ?>">
+                <a href="{{ route('backend.dashboard.index.get') }}">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> <small class="label pull-right bg-green">new</small>
+                </a>
+            </li>
+            <li class="treeview <?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-dashboard"></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li class="<?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.user.index.get') }}"><i class="fa fa-circle-o"></i> User</a></li>
+
+                    <li class=""><a href="{{ route('backend.user.create.get') }}"><i class="fa fa-circle-o"></i> Group</a></li>
+                    <li class=""><a href="{{ route('backend.user.create.get') }}"><i class="fa fa-circle-o"></i> Permission</a></li>
                 </ul>
             </li>
             <li class="treeview">

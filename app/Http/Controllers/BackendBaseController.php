@@ -21,7 +21,20 @@ class BackendBaseController extends Controller
         else
         {
             $this->theme = Theme::uses('backend')->layout('backend');
-            $this->theme->breadcrumb()->add('Dashboard', route('backend.dashboard.get'));
+
+            $this->theme->breadcrumb()->setTemplate('
+                <ul class="breadcrumb">
+                @foreach ($crumbs as $i => $crumb)
+                    @if ($i != (count($crumbs) - 1))
+                    <li><a href="{{ $crumb["url"] }}">{{ $crumb["label"] }}</a></li>
+                    @else
+                    <li class="active">{{ $crumb["label"] }}</li>
+                    @endif
+                @endforeach
+                </ul>
+            ');
+
+            $this->theme->breadcrumb()->add('Dashboard', route('backend.dashboard.index.get'));
         }
     }
 }
