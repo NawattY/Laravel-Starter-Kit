@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\Acl;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+    use Authenticatable, CanResetPassword, SoftDeletes, Acl;
 
     /**
      * The database table used by the model.
@@ -37,56 +34,6 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-    /*
-   |--------------------------------------------------------------------------
-   | ACL Methods
-   |--------------------------------------------------------------------------
-   */
-
-    /**
-     * Checks a Permission
-     *
-     * @param  String permission Slug of a permission (i.e: manage_user)
-     * @return Boolean true if has permission, otherwise false
-     */
-    public function isCan($permission = null)
-    {
-        return !is_null($permission) && $this->checkPermission($permission);
-    }
-
-    /**
-     * Check if the permission matches with any permission user has
-     *
-     * @param  String permission slug of a permission
-     * @return Boolean true if permission exists, otherwise false
-     */
-    protected function checkPermission($perm)
-    {
-        $permissions = $this->getAllPernissionsFormAllRoles();
-
-        $permissionArray = is_array($perm) ? $perm : [$perm];
-
-        return count(array_intersect($permissions, $permissionArray));
-    }
-
-    /**
-     * Get all permission slugs from all permissions of all roles
-     *
-     * @return Array of permission slugs
-     */
-    protected function getAllPernissionsFormAllRoles()
-    {
-        $permissionsArray = [];
-
-        $permissions = $this->roles->load('permissions')->fetch('permissions')->toArray();
-
-        return array_map('strtolower', array_unique(array_flatten(array_map(function ($permission) {
-
-            return array_fetch($permission, 'permission_slug');
-
-        }, $permissions))));
-    }
 
     /*
     |--------------------------------------------------------------------------

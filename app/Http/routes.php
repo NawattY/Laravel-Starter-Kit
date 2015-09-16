@@ -45,7 +45,7 @@ Route::group(['as' => 'auth.', 'prefix' => 'auth', 'namespace' => 'Auth'], funct
     ));
 });
 
-Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => 'auth'], function () {
+Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => ['auth', 'acl']], function () {
     Route::get('/', [
         'as' => 'dashboard.get',
         'uses' => 'DashboardController@index'

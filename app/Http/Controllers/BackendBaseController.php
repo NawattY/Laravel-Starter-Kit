@@ -10,6 +10,8 @@ class BackendBaseController extends Controller
 {
     protected $theme;
 
+    public static $requiredPermissions = [];
+
     public function __construct()
     {
         if (get_class($this) == 'App\Http\Controllers\Auth\AuthController')
