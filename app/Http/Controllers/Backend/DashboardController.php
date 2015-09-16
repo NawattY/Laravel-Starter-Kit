@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\BackendBaseController;
+use Auth;
 
 class DashboardController extends BackendBaseController
 {
@@ -13,6 +14,17 @@ class DashboardController extends BackendBaseController
      */
     public function index()
     {
+        if (Auth::user()->isCan('create-user'))
+        {
+            echo 'can create';
+        }
+        else
+        {
+            echo 'can\'t create';
+        }
+
+        exit;
+
         return $this->theme->scope('dashboard.index')->render();
     }
 

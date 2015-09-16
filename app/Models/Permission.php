@@ -11,7 +11,7 @@ class Permission extends Model
      *
      * @var string
      */
-    protected $table = 'acl_permissions';
+    protected $table = 'permissions';
 
     /*
     |--------------------------------------------------------------------------
