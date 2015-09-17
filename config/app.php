@@ -149,6 +149,7 @@ return [
          * 3rd Party Packages
          */
         'Teepluss\Theme\ThemeServiceProvider',
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

@@ -37,8 +37,8 @@
                 <ul class="treeview-menu">
                     <li class="<?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.user.index.get') }}"><i class="fa fa-circle-o"></i> User</a></li>
 
-                    <li class=""><a href="{{ route('backend.user.create.get') }}"><i class="fa fa-circle-o"></i> Group</a></li>
-                    <li class=""><a href="{{ route('backend.user.create.get') }}"><i class="fa fa-circle-o"></i> Permission</a></li>
+                    <li class="<?php if(str_is('backend.role.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.role.index.get') }}"><i class="fa fa-circle-o"></i> Role</a></li>
+                    <li class="<?php if(str_is('backend.permission.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.permission.index.get') }}"><i class="fa fa-circle-o"></i> Permission</a></li>
                 </ul>
             </li>
             <li class="treeview">

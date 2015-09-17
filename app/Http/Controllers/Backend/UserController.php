@@ -4,22 +4,32 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\BackendBaseController;
 use Auth;
+use Illuminate\Http\Request;
+use App\Repositories\Exceptions\RepositoryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\Eloquent\UserRepositoryEloquent;
+use App\Repositories\Eloquent\RoleRepositoryEloquent;
 
 class UserController extends BackendBaseController
 {
     public static $requiredPermissions = [
-        'index'   => ['view-user'],
-        'create'   => ['create-user'],
-        'store'   => ['create-user'],
-        'show'   => ['view-user'],
-        'edit'   => ['update-user'],
-        'update'   => ['update-user'],
-        'destroy'   => ['suspend-user'],
+        'index'   => ['user-view'],
+        'create'   => ['user-create'],
+        'store'   => ['user-create'],
+        'show'   => ['user-view'],
+        'edit'   => ['user-update'],
+        'update'   => ['user-update'],
+        'destroy'   => ['user-suspend'],
     ];
 
-    public function __construct()
+    protected $userRepo, $roleRepo;
+
+    public function __construct(UserRepositoryEloquent $userRepo, RoleRepositoryEloquent $roleRepo)
     {
         parent::__construct();
+
+        $this->userRepo = $userRepo;
+        $this->roleRepo = $roleRepo;
 
         $this->theme->breadcrumb()->add('User', route('backend.user.index.get'));
     }
@@ -41,8 +51,10 @@ class UserController extends BackendBaseController
      */
     public function create()
     {
+        $data['roles'] = $this->roleRepo->all(['id', 'role_title']);
+
         $this->theme->breadcrumb()->add('Create', route('backend.user.create.get'));
-        return $this->theme->scope('user.create')->render();
+        return $this->theme->scope('user.create', $data)->render();
     }
 
     /**
@@ -53,7 +65,17 @@ class UserController extends BackendBaseController
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role']);
+
+        try {
+            $this->userRepo->create($input);
+
+            return redirect()->route('backend.user.index.get')->withMessages(['success' => ['User has bees succfully created.']]);
+        } catch (RepositoryException $e) {
+            return redirect()->back()->withErrors($e->getErrors())->withInput();
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -64,7 +86,21 @@ class UserController extends BackendBaseController
      */
     public function show($id)
     {
-        //
+        try {
+            $user = $this->userRepo->find($id);
+
+            if (! $user) {
+                echo '! $user';
+            }
+
+            dd($user);
+        } catch (RepositoryException $e) {
+            dd($e->getErrors());
+        } catch (ModelNotFoundException $e) {
+            dd($e->getMessage());
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**

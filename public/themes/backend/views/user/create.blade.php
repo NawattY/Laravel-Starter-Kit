@@ -15,133 +15,59 @@
         <div class="col-xs-12">
             <!-- general form elements disabled -->
             <div class="box box-warning">
-                <div class="box-header with-border">
+                {{--<div class="box-header with-border">
                     <h3 class="box-title">General Elements</h3>
-                </div><!-- /.box-header -->
+                </div><!-- /.box-header -->--}}
                 <div class="box-body">
-                    <form role="form">
-                        <!-- text input -->
-                        <div class="form-group">
-                            <label>Text</label>
-                            <input type="text" class="form-control" placeholder="Enter ...">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Error!</h4>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
+                    @endif
+                    <form role="form" action="{{ route('backend.user.store.post') }}" method="post">
                         <div class="form-group">
-                            <label>Text Disabled</label>
-                            <input type="text" class="form-control" placeholder="Enter ..." disabled>
+                            <label>Firstname</label>
+                            <input type="text" class="form-control" placeholder="Firstname"  name="first_name" value="{{ old('first_name') }}">
                         </div>
 
-                        <!-- textarea -->
                         <div class="form-group">
-                            <label>Textarea</label>
-                            <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Textarea Disabled</label>
-                            <textarea class="form-control" rows="3" placeholder="Enter ..." disabled></textarea>
+                            <label>Lastname</label>
+                            <input type="text" class="form-control" placeholder="Lastname"  name="last_name" value="{{ old('last_name') }}">
                         </div>
 
-                        <!-- input states -->
-                        <div class="form-group has-success">
-                            <label class="control-label" for="inputSuccess"><i class="fa fa-check"></i> Input with success</label>
-                            <input type="text" class="form-control" id="inputSuccess" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group has-warning">
-                            <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Input with warning</label>
-                            <input type="text" class="form-control" id="inputWarning" placeholder="Enter ...">
-                        </div>
-                        <div class="form-group has-error">
-                            <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input with error</label>
-                            <input type="text" class="form-control" id="inputError" placeholder="Enter ...">
-                        </div>
-
-                        <!-- checkbox -->
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Checkbox 1
-                                </label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox">
-                                    Checkbox 2
-                                </label>
-                            </div>
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" disabled>
-                                    Checkbox disabled
-                                </label>
-                            </div>
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}">
                         </div>
 
-                        <!-- radio -->
                         <div class="form-group">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                    Option one is this and that&mdash;be sure to include why it's great
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                    Option two can be something else and selecting it will deselect option one
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
-                                    Option three is disabled
-                                </label>
-                            </div>
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password" name="password">
                         </div>
 
-                        <!-- select -->
                         <div class="form-group">
-                            <label>Select</label>
-                            <select class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                            </select>
+                            <label>Retype password</label>
+                            <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation">
                         </div>
+
                         <div class="form-group">
-                            <label>Select Disabled</label>
-                            <select class="form-control" disabled>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
+                            <label>Role</label>
+                            <select class="form-control" name="role">
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}" <?php if (old('role') == $role->id) { echo 'selected="selected"'; } ?>>{{ $role->role_title }}</option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <!-- Select multiple-->
                         <div class="form-group">
-                            <label>Select Multiple</label>
-                            <select multiple class="form-control">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Select Multiple Disabled</label>
-                            <select multiple class="form-control" disabled>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                                <option>option 3</option>
-                                <option>option 4</option>
-                                <option>option 5</option>
-                            </select>
+                            <button type="submit" class="btn bg-navy"><i class="fa fa-save"></i> Save</button>
+                            {!! csrf_field() !!}
                         </div>
 
                     </form>

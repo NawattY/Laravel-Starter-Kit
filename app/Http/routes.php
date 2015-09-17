@@ -62,7 +62,7 @@ Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend
     });
 
     /*
-     * Member Management
+     * User Management
      */
     Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
         Route::get('/', [
@@ -73,6 +73,111 @@ Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend
         Route::get('/create', [
             'as' => 'create.get',
             'uses' => 'UserController@create'
+        ]);
+
+        Route::post('/', [
+            'as' => 'store.post',
+            'uses' => 'UserController@store'
+        ]);
+
+        Route::get('/{id}', [
+            'as' => 'show.get',
+            'uses' => 'UserController@show'
+        ]);
+
+        Route::get('/{id}/edit', [
+            'as' => 'edit.get',
+            'uses' => 'UserController@edit'
+        ]);
+
+        Route::match(['PUT', 'PATCH'], '/{id}', [
+            'as' => 'update.put',
+            'uses' => 'UserController@update'
+        ]);
+
+        Route::delete('/{id}', [
+            'as' => 'destroy.delete',
+            'uses' => 'UserController@destroy'
+        ]);
+    });
+
+    /*
+     * User Role Management
+     */
+    Route::group(['as' => 'role.', 'prefix' => 'role'], function () {
+        Route::get('/', [
+            'as' => 'index.get',
+            'uses' => 'RoleController@index'
+        ]);
+
+        Route::get('/create', [
+            'as' => 'create.get',
+            'uses' => 'RoleController@create'
+        ]);
+
+        Route::post('/', [
+            'as' => 'store.post',
+            'uses' => 'RoleController@store'
+        ]);
+
+        Route::get('/{id}', [
+            'as' => 'show.get',
+            'uses' => 'RoleController@show'
+        ]);
+
+        Route::get('/{id}/edit', [
+            'as' => 'edit.get',
+            'uses' => 'RoleController@edit'
+        ]);
+
+        Route::match(['PUT', 'PATCH'], '/{id}', [
+            'as' => 'update.put',
+            'uses' => 'RoleController@update'
+        ]);
+
+        Route::delete('/{id}', [
+            'as' => 'destroy.delete',
+            'uses' => 'RoleController@destroy'
+        ]);
+    });
+
+    /*
+     * Role Permission Management
+     */
+    Route::group(['as' => 'permission.', 'prefix' => 'permission'], function () {
+        Route::get('/', [
+            'as' => 'index.get',
+            'uses' => 'PermissionController@index'
+        ]);
+
+        Route::get('/create', [
+            'as' => 'create.get',
+            'uses' => 'PermissionController@create'
+        ]);
+
+        Route::post('/', [
+            'as' => 'store.post',
+            'uses' => 'PermissionController@store'
+        ]);
+
+        Route::get('/{id}', [
+            'as' => 'show.get',
+            'uses' => 'PermissionController@show'
+        ]);
+
+        Route::get('/{id}/edit', [
+            'as' => 'edit.get',
+            'uses' => 'PermissionController@edit'
+        ]);
+
+        Route::match(['PUT', 'PATCH'], '/{id}', [
+            'as' => 'update.put',
+            'uses' => 'PermissionController@update'
+        ]);
+
+        Route::delete('/{id}', [
+            'as' => 'destroy.delete',
+            'uses' => 'PermissionController@destroy'
         ]);
     });
 });

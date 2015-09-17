@@ -9,10 +9,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\Acl;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract, Transformable
 {
-    use Authenticatable, CanResetPassword, SoftDeletes, Acl;
+    use Authenticatable, CanResetPassword, SoftDeletes, Acl, TransformableTrait;
 
     /**
      * The database table used by the model.
