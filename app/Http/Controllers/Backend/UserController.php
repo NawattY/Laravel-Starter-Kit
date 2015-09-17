@@ -164,4 +164,39 @@ class UserController extends BackendBaseController
             return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
         }
     }
+
+    public function profile()
+    {
+        try {
+            $data['user'] = Auth::user();
+
+            $this->theme->breadcrumb()->add('Profile', route('backend.user.profile.get'));
+            return $this->theme->scope('user.profile', $data)->render();
+
+        } catch (RepositoryException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => $e->getErrors()->toArray()]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        } catch (Exception $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        }
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation']);
+        $input['role'] = Auth::user()->roles->lists('id')->toArray();
+
+        try {
+            $this->userRepo->update($input, Auth::user()->id);
+
+            return redirect()->back()->withMessages(['success' => ['Your profile has bees successfully updated.']]);
+        } catch (RepositoryException $e) {
+            return redirect()->back()->withErrors($e->getErrors())->withInput();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
+    }
 }

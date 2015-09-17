@@ -99,6 +99,16 @@ Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend
             'as' => 'destroy.delete',
             'uses' => 'UserController@destroy'
         ]);
+
+        Route::get('/profile', [
+            'as' => 'profile.get',
+            'uses' => 'UserController@profile'
+        ]);
+
+        Route::match(['PUT', 'PATCH'], '/profile', [
+            'as' => 'profile.put',
+            'uses' => 'UserController@profileUpdate'
+        ]);
     });
 
     /*
