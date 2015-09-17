@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        User
+        Role
         <small>list</small>
     </h1>
 
@@ -28,8 +28,8 @@
                 <div class="box-header">
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
-                        @if (Auth::user()->can('user-create'))
-                        <a href="{{ route('backend.user.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create user</a>
+                        @if (Auth::user()->can('role-create'))
+                        <a href="{{ route('backend.role.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create role</a>
                         @endif
                     </div>
                 </div><!-- /.box-header -->
@@ -37,42 +37,27 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Role Title</th>
+                            <th>Role Slug</th>
                             <th>Manage</th>
                         </tr>
-                        @forelse($users as $user)
+                        @forelse($roles as $role)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->first_name }}</td>
-                                <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $role->id }}</td>
+                                <td>{{ $role->role_title }}</td>
+                                <td>{{ $role->role_slug }}</td>
                                 <td>
-                                    <?php
-                                        $count = count($user->roles);
-                                        $i = 0;
-                                    ?>
-                                    @foreach($user->roles as $role)
-                                        {{ $role->role_title }}
-                                        @if ((++$i) < $count)
-                                            ,&nbsp;
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <a href="{{ route('backend.user.edit.get', $user->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
-                                    <form method="post" action="{{ route('backend.user.destroy.delete', $user->id) }}" class="inline">
+                                    <a href="{{ route('backend.role.edit.get', $role->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
+                                    <form method="post" action="{{ route('backend.role.destroy.delete', $role->id) }}" class="inline">
                                         <input type="hidden" name="_method" value="delete">
                                         {!! csrf_field() !!}
-                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Suspend</button>
+                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Delete</button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">User is empty.</td>
+                                <td colspan="6" class="text-center">Role is empty.</td>
                             </tr>
                         @endforelse
                     </table>
@@ -82,8 +67,8 @@
 
         <div class="col-xs-12">
             <?php
-            $users->appends(Input::query());
-            echo $users->render();
+            $roles->appends(Input::query());
+            echo $roles->render();
             ?>
         </div>
     </div>

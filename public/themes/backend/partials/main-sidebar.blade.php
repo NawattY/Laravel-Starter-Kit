@@ -30,7 +30,7 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span> <small class="label pull-right bg-green">new</small>
                 </a>
             </li>
-            <li class="treeview <?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>">
+            <li class="treeview <?php if(str_is('backend.user.*', Route::currentRouteName()) || str_is('backend.role.*', Route::currentRouteName()) || str_is('backend.permission.*', Route::currentRouteName())) { echo 'active'; } ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>

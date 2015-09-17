@@ -55,7 +55,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
-            'role' => 'required|max:255',
+            'role' => 'required',
         ]);
 
         if ($validator->fails())
@@ -80,7 +80,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|max:255',
+            'role' => 'required',
         ];
 
         if (! empty($input['password'])) {

@@ -41,7 +41,7 @@ class UserController extends BackendBaseController
      */
     public function index()
     {
-        $data['users'] = $this->userRepo->all();
+        $data['users'] = $this->userRepo->paginate();
 
         return $this->theme->scope('user.index', $data)->render();
     }
@@ -88,21 +88,7 @@ class UserController extends BackendBaseController
      */
     public function show($id)
     {
-        try {
-            $user = $this->userRepo->find($id);
-
-            if (! $user) {
-                echo '! $user';
-            }
-
-            dd($user);
-        } catch (RepositoryException $e) {
-            dd($e->getErrors());
-        } catch (ModelNotFoundException $e) {
-            dd($e->getMessage());
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
+        return redirect()->route('backend.user.edit.get', $id);
     }
 
     /**
