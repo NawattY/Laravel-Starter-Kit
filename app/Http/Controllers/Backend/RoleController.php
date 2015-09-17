@@ -14,13 +14,13 @@ use App\Repositories\Eloquent\PermissionRepositoryEloquent;
 class RoleController extends BackendBaseController
 {
     public static $requiredPermissions = [
-//        'index'   => ['role-view'],
-//        'create'   => ['role-create'],
-//        'store'   => ['role-create'],
-//        'show'   => ['role-view'],
-//        'edit'   => ['role-update'],
-//        'update'   => ['role-update'],
-//        'destroy'   => ['role-suspend'],
+        'index'   => ['role-view'],
+        'create'   => ['role-create'],
+        'store'   => ['role-create'],
+        'show'   => ['role-view'],
+        'edit'   => ['role-update'],
+        'update'   => ['role-update'],
+        'destroy'   => ['role-suspend'],
     ];
 
     protected $roleRepo, $permissionRepo;

@@ -33,13 +33,13 @@
                     <form role="form" action="{{ route('backend.permission.store.post') }}" method="post">
                         <div class="form-group">
                             <label>Permission Title</label>
-                            <input type="text" class="form-control" placeholder="Role Title"  name="permission_title" value="{{ old('permission_title') }}">
+                            <input type="text" class="form-control" placeholder="Permission Title"  name="permission_title" value="{{ old('permission_title') }}">
                             <p class="help-block">Example : View User</p>
                         </div>
 
                         <div class="form-group">
                             <label>Permission Slug</label>
-                            <input type="text" class="form-control" placeholder="Role Slug"  name="permission_slug" value="{{ old('permission_slug') }}">
+                            <input type="text" class="form-control" placeholder="Permission Slug"  name="permission_slug" value="{{ old('permission_slug') }}">
                             <p class="help-block">Example : user-view</p>
                         </div>
 
