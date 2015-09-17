@@ -47,7 +47,7 @@
                                 <td>{{ $role->role_title }}</td>
                                 <td>{{ $role->role_slug }}</td>
                                 <td>
-                                    @if (Auth::user()->can('role-update'))
+                                    @if (Auth::user()->can('role-update') && $role->id != 1)
                                     <a href="{{ route('backend.role.edit.get', $role->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
                                     @endif
 

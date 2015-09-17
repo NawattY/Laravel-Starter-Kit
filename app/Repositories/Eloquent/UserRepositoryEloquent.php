@@ -83,6 +83,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             'role' => 'required',
         ];
 
+        if ($id == 1) {
+            unset($rule['role']);
+        }
+
         if (! empty($input['password'])) {
             $rule['password'] = 'required|confirmed|min:6';
         }
@@ -100,8 +104,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
         $user = parent::update(array_except($input, ['role', 'password_confirmation']), $id);
 
-        $user->roles()->detach();
-        $user->roles()->attach($input['role']);
+        if ($id != 1) {
+            $user->roles()->detach();
+            $user->roles()->attach($input['role']);
+        }
 
         return $user;
     }

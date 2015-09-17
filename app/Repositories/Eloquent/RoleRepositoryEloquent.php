@@ -59,6 +59,11 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 
     public function update(array $input, $id)
     {
+        if ($id == 1) {
+            $messageBag = new MessageBag(array('Can\'t update, Because this is root role.'));
+            throw new RepositoryException($messageBag);
+        }
+
         $input = array_filter($input);
 
         $validator = Validator::make($input, [
@@ -85,7 +90,7 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
     public function delete($id)
     {
         if ($id == 1) {
-            $messageBag = new MessageBag(array('Can\'t delete, Because this is super role.'));
+            $messageBag = new MessageBag(array('Can\'t delete, Because this is root role.'));
             throw new RepositoryException($messageBag);
         }
 

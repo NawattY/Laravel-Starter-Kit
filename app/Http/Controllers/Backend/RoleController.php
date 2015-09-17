@@ -100,6 +100,10 @@ class RoleController extends BackendBaseController
      */
     public function edit($id)
     {
+        if ($id == 1) {
+            return redirect()->route('backend.role.index.get')->withMessages(['danger' => ['Can\'t update root role.']]);
+        }
+
         try {
             $data['role'] = $this->roleRepo->find($id);
 
@@ -126,6 +130,10 @@ class RoleController extends BackendBaseController
      */
     public function update(Request $request, $id)
     {
+        if ($id == 1) {
+            return redirect()->route('backend.role.index.get')->withMessages(['danger' => ['Can\'t update root role.']]);
+        }
+
         $input = $request->only(['role_title', 'role_slug', 'permission']);
 
         try {
@@ -149,6 +157,10 @@ class RoleController extends BackendBaseController
      */
     public function destroy($id)
     {
+        if ($id == 1) {
+            return redirect()->route('backend.role.index.get')->withMessages(['danger' => ['Can\'t delete root role.']]);
+        }
+
         try {
             $role = $this->roleRepo->delete($id);
 

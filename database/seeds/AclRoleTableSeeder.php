@@ -14,8 +14,13 @@ class AclRoleTableSeeder extends Seeder
         DB::table('roles')->truncate();
 
         DB::table('roles')->insert([
-            'role_title' => 'Super Admin',
-            'role_slug' => 'super_admin',
+            'role_title' => 'Root User',
+            'role_slug' => 'root_user',
+        ]);
+
+        DB::table('roles')->insert([
+            'role_title' => 'Administrator',
+            'role_slug' => 'administrator',
         ]);
 
         DB::table('roles')->insert([
@@ -26,11 +31,6 @@ class AclRoleTableSeeder extends Seeder
         DB::table('roles')->insert([
             'role_title' => 'Editor',
             'role_slug' => 'editor',
-        ]);
-
-        DB::table('roles')->insert([
-            'role_title' => 'writer',
-            'role_slug' => 'writer',
         ]);
     }
 }

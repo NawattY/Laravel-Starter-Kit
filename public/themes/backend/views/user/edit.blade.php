@@ -56,6 +56,7 @@
                             <input type="password" class="form-control" placeholder="Retype password" name="password_confirmation">
                         </div>
 
+                        @if ($user->id != 1)
                         <div class="form-group">
                             <label>Role</label>
                             <select class="form-control" name="role[]" multiple>
@@ -64,6 +65,7 @@
                                 @endforeach
                             </select>
                         </div>
+                        @endif
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                         <a href="{{ route('backend.user.index.get') }}" class="btn btn-default">Cancel</a>
