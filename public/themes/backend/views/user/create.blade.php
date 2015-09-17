@@ -58,9 +58,9 @@
 
                         <div class="form-group">
                             <label>Role</label>
-                            <select class="form-control" name="role">
+                            <select class="form-control" name="role[]" multiple>
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" <?php if (old('role') == $role->id) { echo 'selected="selected"'; } ?>>{{ $role->role_title }}</option>
+                                    <option value="{{ $role->id }}" <?php if (in_array($role->id, old('role', []))) { echo 'selected="selected"'; } ?>>{{ $role->role_title }}</option>
                                 @endforeach
                             </select>
                         </div>

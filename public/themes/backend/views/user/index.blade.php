@@ -29,7 +29,7 @@
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
                         @if (Auth::user()->can('user-create'))
-                        <a href="{{ route('backend.user.create.get') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Create user</a>
+                        <a href="{{ route('backend.user.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create user</a>
                         @endif
                     </div>
                 </div><!-- /.box-header -->
@@ -50,16 +50,23 @@
                                 <td>{{ $user->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
+                                    <?php
+                                        $count = count($user->roles);
+                                        $i = 0;
+                                    ?>
                                     @foreach($user->roles as $role)
                                         {{ $role->role_title }}
+                                        @if ((++$i) < $count)
+                                            ,&nbsp;
+                                        @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a href="{{ route('backend.user.edit.get', $user->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i> Edit</a>
-                                    <form method="post" action="{{ route('backend.user.destroy.delete', $user->id) }}" class="form-inline">
+                                    <a href="{{ route('backend.user.edit.get', $user->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
+                                    <form method="post" action="{{ route('backend.user.destroy.delete', $user->id) }}" class="inline">
                                         <input type="hidden" name="_method" value="delete">
                                         {!! csrf_field() !!}
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-close"></i> Suspend</button>
+                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Suspend</button>
                                     </form>
                                 </td>
                             </tr>

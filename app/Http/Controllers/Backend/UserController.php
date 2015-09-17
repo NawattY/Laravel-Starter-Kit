@@ -116,10 +116,6 @@ class UserController extends BackendBaseController
         try {
             $data['user'] = $this->userRepo->find($id);
 
-            if (! $data['user']) {
-                echo '! user';
-            }
-
             $data['roles'] = $this->roleRepo->all(['id', 'role_title']);
 
             $this->theme->breadcrumb()->add('Edit', route('backend.user.edit.get', $id));
@@ -167,19 +163,15 @@ class UserController extends BackendBaseController
     public function destroy($id)
     {
         try {
-            $user = $this->userRepo->find($id);
+            $user = $this->userRepo->delete($id);
 
-            if (! $user) {
-                echo '! $user';
-            }
-
-            dd($user);
-        } catch (RepositoryException $e) {
-            dd($e->getErrors());
+            return redirect()->route('backend.user.index.get')->withMessages(['success' => ['User has bees successfully suspended.']]);
+        }  catch (RepositoryException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getErrors()]]);
         } catch (ModelNotFoundException $e) {
-            dd($e->getMessage());
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
         }
     }
 }
