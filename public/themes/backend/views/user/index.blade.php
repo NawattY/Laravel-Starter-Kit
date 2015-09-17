@@ -62,12 +62,17 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @if (Auth::user()->can('user-update'))
                                     <a href="{{ route('backend.user.edit.get', $user->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
+                                    @endif
+
+                                    @if (Auth::user()->can('user-suspend') && $user->id != 1)
                                     <form method="post" action="{{ route('backend.user.destroy.delete', $user->id) }}" class="inline">
                                         <input type="hidden" name="_method" value="delete">
                                         {!! csrf_field() !!}
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Suspend</button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

@@ -17,6 +17,10 @@ trait Acl
      */
     public function can($permission = null)
     {
+        if ($this->id == 1) { //By pass root user
+            return true;
+        }
+
         return !is_null($permission) && $this->checkPermission($permission);
     }
 

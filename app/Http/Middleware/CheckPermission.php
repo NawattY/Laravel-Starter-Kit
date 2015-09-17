@@ -16,6 +16,9 @@ class CheckPermission
     public function handle($request, Closure $next)
     {
         if (!app('Illuminate\Contracts\Auth\Guard')->guest()) {
+            if ($request->user()->id == 1) { //By pass root user
+                return $next($request);
+            }
 
             $can = $this->userCanAccessTo($request);
 

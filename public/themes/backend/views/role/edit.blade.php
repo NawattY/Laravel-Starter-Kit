@@ -43,6 +43,7 @@
                             <p class="help-block">Example : reporter_user</p>
                         </div>
 
+                        @if ($role->id != 1)
                         <div class="form-group">
                             <label>Permissions</label>
 
@@ -59,6 +60,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                         <a href="{{ route('backend.role.index.get') }}" class="btn btn-default">Cancel</a>

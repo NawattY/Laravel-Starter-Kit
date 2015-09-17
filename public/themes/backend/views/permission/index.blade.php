@@ -49,12 +49,17 @@
                                 <td>{{ $permission->permission_slug }}</td>
                                 <td>{{ $permission->permission_description }}</td>
                                 <td>
+                                    @if (Auth::user()->can('permission-update'))
                                     <a href="{{ route('backend.permission.edit.get', $permission->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
+                                    @endif
+
+                                    @if (Auth::user()->can('permission-delete'))
                                     <form method="post" action="{{ route('backend.permission.destroy.delete', $permission->id) }}" class="inline">
                                         <input type="hidden" name="_method" value="delete">
                                         {!! csrf_field() !!}
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Delete</button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

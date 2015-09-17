@@ -105,4 +105,14 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
         return $user;
     }
+
+    public function delete($id)
+    {
+        if ($id == 1) {
+            $messageBag = new MessageBag(array('Can\'t delete, Because this is root user.'));
+            throw new RepositoryException($messageBag);
+        }
+
+        return parent::delete($id);
+    }
 }

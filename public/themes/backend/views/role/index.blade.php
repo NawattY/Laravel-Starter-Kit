@@ -47,12 +47,17 @@
                                 <td>{{ $role->role_title }}</td>
                                 <td>{{ $role->role_slug }}</td>
                                 <td>
+                                    @if (Auth::user()->can('role-update'))
                                     <a href="{{ route('backend.role.edit.get', $role->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>
+                                    @endif
+
+                                    @if (Auth::user()->can('role-delete') && $role->id != 1)
                                     <form method="post" action="{{ route('backend.role.destroy.delete', $role->id) }}" class="inline">
                                         <input type="hidden" name="_method" value="delete">
                                         {!! csrf_field() !!}
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> Delete</button>
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

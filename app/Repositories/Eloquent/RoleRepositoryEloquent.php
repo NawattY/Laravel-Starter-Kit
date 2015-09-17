@@ -84,6 +84,11 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 
     public function delete($id)
     {
+        if ($id == 1) {
+            $messageBag = new MessageBag(array('Can\'t delete, Because this is super role.'));
+            throw new RepositoryException($messageBag);
+        }
+
         $role = $this->find($id);
 
         if (! $role->users->isEmpty()) {
