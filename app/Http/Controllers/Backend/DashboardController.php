@@ -7,16 +7,6 @@ use Auth;
 
 class DashboardController extends BackendBaseController
 {
-    public static $requiredPermissions = [
-        'index'   => ['view-user'],
-        'create'   => ['create-user'],
-        'store'   => ['create-user'],
-        'show'   => ['view-user'],
-        'edit'   => ['update-user'],
-        'update'   => ['update-user'],
-        'destroy'   => ['suspend-user'],
-    ];
-
     /**
      * Display a listing of the resource.
      *

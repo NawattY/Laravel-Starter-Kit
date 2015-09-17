@@ -29,7 +29,7 @@
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
                         @if (Auth::user()->can('user-create'))
-                        <a href="{{ route('backend.user.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create user</a>
+                        <a href="{{ route('backend.user.create.get') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Create user</a>
                         @endif
                     </div>
                 </div><!-- /.box-header -->
@@ -77,14 +77,13 @@
                         @endforelse
                     </table>
                 </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <?php
+                    $users->appends(Input::query());
+                    echo $users->render();
+                    ?>
+                </div><!-- /.box-footer -->
             </div><!-- /.box -->
-        </div>
-
-        <div class="col-xs-12">
-            <?php
-            $users->appends(Input::query());
-            echo $users->render();
-            ?>
         </div>
     </div>
 

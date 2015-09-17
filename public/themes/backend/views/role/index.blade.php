@@ -29,7 +29,7 @@
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
                         @if (Auth::user()->can('role-create'))
-                        <a href="{{ route('backend.role.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create role</a>
+                        <a href="{{ route('backend.role.create.get') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Create role</a>
                         @endif
                     </div>
                 </div><!-- /.box-header -->
@@ -62,14 +62,13 @@
                         @endforelse
                     </table>
                 </div><!-- /.box-body -->
+                <div class="box-footer">
+                <?php
+                    $roles->appends(Input::query());
+                    echo $roles->render();
+                ?>
+                </div><!-- /.box-footer -->
             </div><!-- /.box -->
-        </div>
-
-        <div class="col-xs-12">
-            <?php
-            $roles->appends(Input::query());
-            echo $roles->render();
-            ?>
         </div>
     </div>
 

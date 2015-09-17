@@ -29,7 +29,7 @@
                     <h3 class="box-title"></h3>
                     <div class="box-tools">
                         @if (Auth::user()->can('permission-create'))
-                        <a href="{{ route('backend.permission.create.get') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create permission</a>
+                        <a href="{{ route('backend.permission.create.get') }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Create permission</a>
                         @endif
                     </div>
                 </div><!-- /.box-header -->
@@ -64,14 +64,13 @@
                         @endforelse
                     </table>
                 </div><!-- /.box-body -->
+                <div class="box-footer">
+                <?php
+                    $permissions->appends(Input::query());
+                    echo $permissions->render();
+                ?>
+                </div><!-- /.box-footer -->
             </div><!-- /.box -->
-        </div>
-
-        <div class="col-xs-12">
-            <?php
-            $permissions->appends(Input::query());
-            echo $permissions->render();
-            ?>
         </div>
     </div>
 

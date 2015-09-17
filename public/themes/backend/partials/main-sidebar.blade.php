@@ -32,13 +32,13 @@
             </li>
             <li class="treeview <?php if(str_is('backend.user.*', Route::currentRouteName()) || str_is('backend.role.*', Route::currentRouteName()) || str_is('backend.permission.*', Route::currentRouteName())) { echo 'active'; } ?>">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-users"></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="<?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.user.index.get') }}"><i class="fa fa-circle-o"></i> User</a></li>
+                    <li class="<?php if(str_is('backend.user.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.user.index.get') }}"><i class="fa fa-users"></i> User</a></li>
 
-                    <li class="<?php if(str_is('backend.role.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.role.index.get') }}"><i class="fa fa-circle-o"></i> Role</a></li>
-                    <li class="<?php if(str_is('backend.permission.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.permission.index.get') }}"><i class="fa fa-circle-o"></i> Permission</a></li>
+                    <li class="<?php if(str_is('backend.role.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.role.index.get') }}"><i class="fa fa-legal"></i> Role</a></li>
+                    <li class="<?php if(str_is('backend.permission.*', Route::currentRouteName())) { echo 'active'; } ?>"><a href="{{ route('backend.permission.index.get') }}"><i class="fa fa-key"></i> Permission</a></li>
                 </ul>
             </li>
             <li class="treeview">

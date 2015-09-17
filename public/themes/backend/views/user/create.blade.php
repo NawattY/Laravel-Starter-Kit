@@ -14,11 +14,12 @@
     <div class="row">
         <div class="col-xs-12">
             <!-- general form elements disabled -->
-            <div class="box box-warning">
-                {{--<div class="box-header with-border">
-                    <h3 class="box-title">General Elements</h3>
-                </div><!-- /.box-header -->--}}
-                <div class="box-body">
+            <form role="form" action="{{ route('backend.user.store.post') }}" method="post">
+                <div class="box box-warning">
+                    {{--<div class="box-header with-border">
+                        <h3 class="box-title">General Elements</h3>
+                    </div><!-- /.box-header -->--}}
+                    <div class="box-body">
                     @if (count($errors) > 0)
                         <div class="alert alert-danger alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -30,7 +31,6 @@
                             </ul>
                         </div>
                     @endif
-                    <form role="form" action="{{ route('backend.user.store.post') }}" method="post">
                         <div class="form-group">
                             <label>Firstname</label>
                             <input type="text" class="form-control" placeholder="Firstname"  name="first_name" value="{{ old('first_name') }}">
@@ -64,14 +64,13 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn bg-navy"><i class="fa fa-save"></i> Save</button>
-                            {!! csrf_field() !!}
-                        </div>
-
-                    </form>
-                </div><!-- /.box-body -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer">
+                        <a href="{{ route('backend.user.index.get') }}" class="btn btn-default">Cancel</a>
+                        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Save</button>
+                        {!! csrf_field() !!}
+                    </div><!-- /.box-footer -->
+                </form>
             </div><!-- /.box -->
         </div>
     </div>
