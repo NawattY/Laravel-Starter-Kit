@@ -6,6 +6,9 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\Interfaces\PermissionRepository;
 use App\Models\Permission;
+use App\Repositories\Exceptions\RepositoryException;
+use Illuminate\Support\MessageBag;
+use Validator;
 
 /**
  * Class PermissionRepositoryEloquent
@@ -29,5 +32,51 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function create(array $input)
+    {
+        $input = array_filter($input);
+
+        $validator = Validator::make($input, [
+            'permission_title' => 'required|max:255',
+            'permission_slug' => 'required|max:255|unique:permissions,permission_slug|regex:/^[a-z]{1}[a-z0-9\-]*$/',
+        ]);
+
+        if ($validator->fails())
+        {
+            throw new RepositoryException($validator->messages());
+        }
+
+        return parent::create(array_only($input, ['permission_title', 'permission_slug', 'permission_description']));
+    }
+
+    public function update(array $input, $id)
+    {
+        $validator = Validator::make($input, [
+            'permission_title' => 'required|max:255',
+            'permission_slug' => 'required|max:255|unique:permissions,permission_slug,' . $id . '|regex:/^[a-z]{1}[a-z0-9\-]*$/',
+        ]);
+
+        if ($validator->fails())
+        {
+            throw new RepositoryException($validator->messages());
+        }
+
+        return parent::update(array_only($input, ['permission_title', 'permission_slug', 'permission_description']), $id);
+    }
+
+    public function delete($id)
+    {
+        $permission = $this->find($id);
+
+        if (! $permission->roles->isEmpty()) {
+            $messageBag = new MessageBag(array('Can\'t delete, Because this permission have any role.'));
+            throw new RepositoryException($messageBag);
+        }
+
+        $delete = parent::delete($id);
+
+        return $delete;
     }
 }

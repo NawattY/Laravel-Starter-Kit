@@ -17,6 +17,8 @@ class Permission extends Model implements Transformable
      */
     protected $table = 'permissions';
 
+    protected $fillable = ['permission_title', 'permission_slug', 'permission_description'];
+
     /**
      * Indicates if the model should be timestamped.
      *
