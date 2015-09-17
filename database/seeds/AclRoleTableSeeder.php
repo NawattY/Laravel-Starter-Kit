@@ -11,6 +11,8 @@ class AclRoleTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->truncate();
+
         DB::table('roles')->insert([
             'role_title' => 'Super Admin',
             'role_slug' => 'super_admin',

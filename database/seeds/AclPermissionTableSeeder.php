@@ -11,6 +11,8 @@ class AclPermissionTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('permissions')->truncate();
+
         DB::table('permissions')->insert([
             'permission_title' => 'Create User',
             'permission_slug' => 'user-create',
