@@ -34,7 +34,8 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function findById($id) {
+    public function findById($id)
+    {
         $user = $this->model->find($id);
 
         if (! $user) {
@@ -45,7 +46,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return $user;
     }
 
-    public function create(array $input) {
+    public function create(array $input)
+    {
+        $input = array_filter($input);
+
         $validator = Validator::make($input, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
@@ -63,6 +67,40 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
         $user = parent::create(array_except($input, ['role']));
 
+        $user->roles()->attach($input['role']);
+
+        return $user;
+    }
+
+    public function update(array $input, $id)
+    {
+        $input = array_filter($input);
+
+        $rule = [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'role' => 'required|max:255',
+        ];
+
+        if (! empty($input['password'])) {
+            $rule['password'] = 'required|confirmed|min:6';
+        }
+
+        $validator = Validator::make($input, $rule);
+
+        if ($validator->fails())
+        {
+            throw new RepositoryException($validator->messages());
+        }
+
+        if (! empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        }
+
+        $user = parent::update(array_except($input, ['role', 'password_confirmation']), $id);
+
+        $user->roles()->detach();
         $user->roles()->attach($input['role']);
 
         return $user;

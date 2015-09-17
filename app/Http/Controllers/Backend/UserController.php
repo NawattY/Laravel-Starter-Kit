@@ -41,7 +41,9 @@ class UserController extends BackendBaseController
      */
     public function index()
     {
-        return $this->theme->scope('user.index')->render();
+        $data['users'] = $this->userRepo->all();
+
+        return $this->theme->scope('user.index', $data)->render();
     }
 
     /**
@@ -70,7 +72,7 @@ class UserController extends BackendBaseController
         try {
             $this->userRepo->create($input);
 
-            return redirect()->route('backend.user.index.get')->withMessages(['success' => ['User has bees succfully created.']]);
+            return redirect()->route('backend.user.index.get')->withMessages(['success' => ['User has bees successfully created.']]);
         } catch (RepositoryException $e) {
             return redirect()->back()->withErrors($e->getErrors())->withInput();
         } catch (Exception $e) {
@@ -111,7 +113,25 @@ class UserController extends BackendBaseController
      */
     public function edit($id)
     {
-        //
+        try {
+            $data['user'] = $this->userRepo->find($id);
+
+            if (! $data['user']) {
+                echo '! user';
+            }
+
+            $data['roles'] = $this->roleRepo->all(['id', 'role_title']);
+
+            $this->theme->breadcrumb()->add('Edit', route('backend.user.edit.get', $id));
+            return $this->theme->scope('user.edit', $data)->render();
+
+        } catch (RepositoryException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => $e->getErrors()->toArray()]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        } catch (Exception $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        }
     }
 
     /**
@@ -123,7 +143,19 @@ class UserController extends BackendBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role']);
+
+        try {
+            $this->userRepo->update($input, $id);
+
+            return redirect()->route('backend.user.index.get')->withMessages(['success' => ['User has bees successfully updated.']]);
+        } catch (RepositoryException $e) {
+            return redirect()->back()->withErrors($e->getErrors())->withInput();
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('backend.user.index.get')->withMessages(['danger' => [$e->getMessage()]]);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -134,6 +166,20 @@ class UserController extends BackendBaseController
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = $this->userRepo->find($id);
+
+            if (! $user) {
+                echo '! $user';
+            }
+
+            dd($user);
+        } catch (RepositoryException $e) {
+            dd($e->getErrors());
+        } catch (ModelNotFoundException $e) {
+            dd($e->getMessage());
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }
