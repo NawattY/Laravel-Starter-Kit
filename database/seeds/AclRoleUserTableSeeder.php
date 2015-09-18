@@ -11,7 +11,7 @@ class AclRoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('role_user')->truncate();
+        // DB::table('role_user')->truncate();
 
         DB::table('role_user')->insert([
             'role_id' => 1,

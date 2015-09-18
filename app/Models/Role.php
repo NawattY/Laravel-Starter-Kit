@@ -18,11 +18,4 @@ class Role extends EntrustRole implements Transformable
      */
     protected $fillable = ['name', 'display_name', 'description'];
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
 }
