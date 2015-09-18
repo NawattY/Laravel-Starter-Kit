@@ -37,15 +37,17 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>Role Title</th>
-                            <th>Role Slug</th>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Description</th>
                             <th>Manage</th>
                         </tr>
                         @forelse($roles as $role)
                             <tr>
                                 <td>{{ $role->id }}</td>
-                                <td>{{ $role->role_title }}</td>
-                                <td>{{ $role->role_slug }}</td>
+                                <td>{{ $role->name }}</td>
+                                <td>{{ $role->display_name }}</td>
+                                <td>{{ $role->description }}</td>
                                 <td>
                                     @if (Auth::user()->can('role-update') && $role->id != 1)
                                     <a href="{{ route('backend.role.edit.get', $role->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>

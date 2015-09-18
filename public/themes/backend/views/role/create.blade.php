@@ -32,15 +32,20 @@
                         </div>
                     @endif
                         <div class="form-group">
-                            <label>Role Title</label>
-                            <input type="text" class="form-control" placeholder="Role Title"  name="role_title" value="{{ old('role_title') }}">
-                            <p class="help-block">Example : Reporter User</p>
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Name"  name="name" value="{{ old('name') }}">
+                            {{--<p class="help-block">Example : reporter_user</p>--}}
                         </div>
 
                         <div class="form-group">
-                            <label>Role Slug</label>
-                            <input type="text" class="form-control" placeholder="Role Slug"  name="role_slug" value="{{ old('role_slug') }}">
-                            <p class="help-block">Example : reporter_user</p>
+                            <label>Display Name</label>
+                            <input type="text" class="form-control" placeholder="Display Name"  name="display_name" value="{{ old('display_name') }}">
+                            {{--<p class="help-block">Example : Reporter User</p>--}}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Description" name="description">{{ old('description') }}</textarea>
                         </div>
 
                         <div class="form-group">
@@ -52,7 +57,7 @@
                                     <div class="checkbox inline margin-r-5">
                                         <label>
                                             <input type="checkbox" name="permission[]" value="{{ $permission->id }}" <?php if (in_array($permission->id, old('permission', []))) { echo 'checked="checked"'; } ?>>
-                                            {{ $permission->permission_title }}
+                                            {{ $permission->display_name }}
                                         </label>
                                     </div>
                                     @endforeach

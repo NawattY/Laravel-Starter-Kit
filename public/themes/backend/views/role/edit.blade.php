@@ -32,16 +32,20 @@
                         </div>
                     @endif
                         <div class="form-group">
-                            <label>Role Title</label>
-                            <input type="text" class="form-control" placeholder="Role Title"  name="role_title" value="{{ old('role_title', $role->role_title) }}">
-                            <p class="help-block">Example : Reporter User</p>
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Name"  name="name" value="{{ old('name', $role->name) }}">
+                            {{--<p class="help-block">Example : reporter_user</p>--}}
                         </div>
 
                         <div class="form-group">
-                            <label>Role Slug</label>
-                            <input type="text" class="form-control" placeholder="Role Slug"  name="role_slug" value="{{ old('role_slug', $role->role_slug) }}">
-                            <p class="help-block">Example : reporter_user</p>
+                            <label>Display Name</label>
+                            <input type="text" class="form-control" placeholder="Display Name"  name="display_name" value="{{ old('display_name', $role->display_name) }}">
+                            {{--<p class="help-block">Example : Reporter User</p>--}}
                         </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Description" name="description">{{ old('description', $role->description) }}</textarea>                        </div>
 
                         @if ($role->id != 1)
                         <div class="form-group">
@@ -52,8 +56,8 @@
                                     @foreach($permissions as $permission)
                                         <div class="checkbox inline margin-r-5">
                                             <label>
-                                                <input type="checkbox" name="permission[]" value="{{ $permission->id }}" <?php if (in_array($permission->id, old('permission', $role->permissions->lists('id')->toArray()))) { echo 'checked="checked"'; } ?>>
-                                                {{ $permission->permission_title }}
+                                                <input type="checkbox" name="permission[]" value="{{ $permission->id }}" <?php if (in_array($permission->id, old('permission', $role->perms->lists('id')->toArray()))) { echo 'checked="checked"'; } ?>>
+                                                {{ $permission->display_name }}
                                             </label>
                                         </div>
                                     @endforeach

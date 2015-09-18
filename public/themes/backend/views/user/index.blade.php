@@ -55,7 +55,7 @@
                                         $i = 0;
                                     ?>
                                     @foreach($user->roles as $role)
-                                        {{ $role->role_title }}
+                                        {{ $role->display_name }}
                                         @if ((++$i) < $count)
                                             ,&nbsp;
                                         @endif

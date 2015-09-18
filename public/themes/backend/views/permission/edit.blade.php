@@ -32,20 +32,20 @@
                         </div>
                     @endif
                         <div class="form-group">
-                            <label>Permission Title</label>
-                            <input type="text" class="form-control" placeholder="Permission Title"  name="permission_title" value="{{ old('permission_title', $permission->permission_title) }}">
-                            <p class="help-block">Example : View User</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Permission Slug</label>
-                            <input type="text" class="form-control" placeholder="Permission Slug"  name="permission_slug" value="{{ old('permission_slug', $permission->permission_slug) }}">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Name"  name="name" value="{{ old('name', $permission->name) }}">
                             <p class="help-block">Example : user-view</p>
                         </div>
 
                         <div class="form-group">
-                            <label>Permission Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Permission Description" name="permission_description">{{ old('permission_description', $permission->permission_description) }}</textarea>
+                            <label>Display Name</label>
+                            <input type="text" class="form-control" placeholder="Display Name"  name="display_name" value="{{ old('display_name', $permission->display_name) }}">
+                            <p class="help-block">Example : View User</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Description" name="description">{{ old('description', $permission->description) }}</textarea>
                         </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">

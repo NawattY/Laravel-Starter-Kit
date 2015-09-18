@@ -39,8 +39,8 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
         $input = array_filter($input);
 
         $validator = Validator::make($input, [
-            'role_title' => 'required|max:255',
-            'role_slug' => 'required|max:255|unique:roles,role_slug|regex:/^[a-z]{1}[a-z0-9\_]*$/',
+            'name' => 'required|max:255|unique:roles,name', // regex:/^[a-z]{1}[a-z0-9\_]*$/
+            'display_name' => 'required|max:255',
         ]);
 
         if ($validator->fails())
@@ -48,10 +48,10 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
             throw new RepositoryException($validator->messages());
         }
 
-        $role = parent::create(array_only($input, ['role_title', 'role_slug']));
+        $role = parent::create(array_only($input, ['display_name', 'name', 'description']));
 
         if (! empty($input['permission'])) {
-            $role->permissions()->attach($input['permission']);
+            $role->perms()->attach($input['permission']);
         }
 
         return $role;
@@ -64,11 +64,9 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
             throw new RepositoryException($messageBag);
         }
 
-        $input = array_filter($input);
-
         $validator = Validator::make($input, [
-            'role_title' => 'required|max:255',
-            'role_slug' => 'required|max:255|unique:roles,role_slug,' . $id . '|regex:/^[a-z]{1}[a-z0-9\_]*$/',
+            'name' => 'required|max:255|unique:roles,name,' . $id . '', // |regex:/^[a-z]{1}[a-z0-9\_]*$/
+            'display_name' => 'required|max:255',
         ]);
 
         if ($validator->fails())
@@ -76,12 +74,12 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
             throw new RepositoryException($validator->messages());
         }
 
-        $role = parent::update(array_only($input, ['role_title', 'role_slug']), $id);
+        $role = parent::update(array_only($input, ['display_name', 'name', 'description']), $id);
 
-        $role->permissions()->detach();
+        $role->perms()->detach();
 
         if (! empty($input['permission'])) {
-            $role->permissions()->attach($input['permission']);
+            $role->perms()->attach($input['permission']);
         }
 
         return $role;
@@ -101,7 +99,7 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
             throw new RepositoryException($messageBag);
         }
 
-        $role->permissions()->detach();
+        $role->perms()->detach();
 
         $delete = parent::delete($id);
 

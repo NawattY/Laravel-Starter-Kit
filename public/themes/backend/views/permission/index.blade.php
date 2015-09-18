@@ -37,17 +37,17 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>Permission Title</th>
-                            <th>Permission Slug</th>
-                            <th>Permission Description</th>
+                            <th>Name</th>
+                            <th>Display Name</th>
+                            <th>Description</th>
                             <th>Manage</th>
                         </tr>
                         @forelse($permissions as $permission)
                             <tr>
                                 <td>{{ $permission->id }}</td>
-                                <td>{{ $permission->permission_title }}</td>
-                                <td>{{ $permission->permission_slug }}</td>
-                                <td>{{ $permission->permission_description }}</td>
+                                <td>{{ $permission->name }}</td>
+                                <td>{{ $permission->display_name }}</td>
+                                <td>{{ $permission->description }}</td>
                                 <td>
                                     @if (Auth::user()->can('permission-update'))
                                     <a href="{{ route('backend.permission.edit.get', $permission->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>

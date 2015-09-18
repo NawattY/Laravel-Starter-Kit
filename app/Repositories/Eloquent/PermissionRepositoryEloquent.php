@@ -39,8 +39,8 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         $input = array_filter($input);
 
         $validator = Validator::make($input, [
-            'permission_title' => 'required|max:255',
-            'permission_slug' => 'required|max:255|unique:permissions,permission_slug|regex:/^[a-z]{1}[a-z0-9\-]*$/',
+            'display_name' => 'required|max:255',
+            'name' => 'required|max:255|unique:permissions,name|regex:/^[a-z]{1}[a-z0-9\-]*$/',
         ]);
 
         if ($validator->fails())
@@ -48,14 +48,14 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
             throw new RepositoryException($validator->messages());
         }
 
-        return parent::create(array_only($input, ['permission_title', 'permission_slug', 'permission_description']));
+        return parent::create(array_only($input, ['display_name', 'name', 'description']));
     }
 
     public function update(array $input, $id)
     {
         $validator = Validator::make($input, [
-            'permission_title' => 'required|max:255',
-            'permission_slug' => 'required|max:255|unique:permissions,permission_slug,' . $id . '|regex:/^[a-z]{1}[a-z0-9\-]*$/',
+            'display_name' => 'required|max:255',
+            'name' => 'required|max:255|unique:permissions,name,' . $id . '|regex:/^[a-z]{1}[a-z0-9\-]*$/',
         ]);
 
         if ($validator->fails())
@@ -63,7 +63,7 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
             throw new RepositoryException($validator->messages());
         }
 
-        return parent::update(array_only($input, ['permission_title', 'permission_slug', 'permission_description']), $id);
+        return parent::update(array_only($input, ['display_name', 'name', 'description']), $id);
     }
 
     public function delete($id)
@@ -71,7 +71,7 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         $permission = $this->find($id);
 
         if (! $permission->roles->isEmpty()) {
-            $messageBag = new MessageBag(array('Can\'t delete, Because this permission have any role.'));
+            $messageBag = new MessageBag(array('Can\'t delete, Because any role have this permission.'));
             throw new RepositoryException($messageBag);
         }
 

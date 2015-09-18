@@ -54,7 +54,7 @@ class RoleController extends BackendBaseController
      */
     public function create()
     {
-        $data['permissions'] = $this->permissionRepo->all(['id', 'permission_title']);
+        $data['permissions'] = $this->permissionRepo->all(['id', 'display_name']);
 
         $this->theme->breadcrumb()->add('Create', route('backend.role.create.get'));
         return $this->theme->scope('role.create', $data)->render();
@@ -68,7 +68,7 @@ class RoleController extends BackendBaseController
      */
     public function store(Request $request)
     {
-        $input = $request->only(['role_title', 'role_slug', 'permission']);
+        $input = $request->only(['display_name', 'name', 'description', 'permission']);
 
         try {
             $this->roleRepo->create($input);
@@ -107,7 +107,7 @@ class RoleController extends BackendBaseController
         try {
             $data['role'] = $this->roleRepo->find($id);
 
-            $data['permissions'] = $this->permissionRepo->all(['id', 'permission_title']);
+            $data['permissions'] = $this->permissionRepo->all(['id', 'display_name']);
 
             $this->theme->breadcrumb()->add('Edit', route('backend.role.edit.get', $id));
             return $this->theme->scope('role.edit', $data)->render();
@@ -134,7 +134,7 @@ class RoleController extends BackendBaseController
             return redirect()->route('backend.role.index.get')->withMessages(['danger' => ['Can\'t update root role.']]);
         }
 
-        $input = $request->only(['role_title', 'role_slug', 'permission']);
+        $input = $request->only(['display_name', 'name', 'description', 'permission']);
 
         try {
             $this->roleRepo->update($input, $id);

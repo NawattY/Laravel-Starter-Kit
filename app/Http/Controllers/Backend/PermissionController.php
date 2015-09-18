@@ -40,7 +40,9 @@ class PermissionController extends BackendBaseController
      */
     public function index()
     {
-        $data['permissions'] = $this->permissionRepo->paginate(25);
+        $data['permissions'] = $this->permissionRepo->scopeQuery(function($query){
+            return $query->orderBy('display_name','asc');
+        })->paginate(25);
 
         return $this->theme->scope('permission.index', $data)->render();
     }
@@ -64,7 +66,7 @@ class PermissionController extends BackendBaseController
      */
     public function store(Request $request)
     {
-        $input = $request->only(['permission_title', 'permission_slug', 'permission_description']);
+        $input = $request->only(['display_name', 'name', 'description']);
 
         try {
             $this->permissionRepo->create($input);
@@ -120,7 +122,7 @@ class PermissionController extends BackendBaseController
      */
     public function update(Request $request, $id)
     {
-        $input = $request->only(['permission_title', 'permission_slug', 'permission_description']);
+        $input = $request->only(['display_name', 'name', 'description']);
 
         try {
             $this->permissionRepo->update($input, $id);

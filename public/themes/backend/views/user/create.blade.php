@@ -60,7 +60,7 @@
                             <label>Role</label>
                             <select class="form-control" name="role[]" multiple>
                                 @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" <?php if (in_array($role->id, old('role', []))) { echo 'selected="selected"'; } ?>>{{ $role->role_title }}</option>
+                                    <option value="{{ $role->id }}" <?php if (in_array($role->id, old('role', []))) { echo 'selected="selected"'; } ?>>{{ $role->display_name }}</option>
                                 @endforeach
                             </select>
                         </div>

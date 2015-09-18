@@ -8,13 +8,17 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\Acl;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, Transformable
 {
-    use Authenticatable, CanResetPassword, SoftDeletes, Acl, TransformableTrait;
+    use Authenticatable, CanResetPassword, SoftDeletes, TransformableTrait;
+
+    use EntrustUserTrait {
+        can as EntrustUserTraitCan;
+    }
 
     /**
      * The database table used by the model.
@@ -37,19 +41,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationship Methods
-    |--------------------------------------------------------------------------
-    */
+
 
     /**
-     * Many-To-Many Relationship Method for accessing the User->roles
+     * Check if user has a permission by its name.
      *
-     * @return QueryBuilder Object
+     * @param string|array $permission Permission string or array of permissions.
+     * @param bool         $requireAll All permissions in the array are required.
+     *
+     * @return bool
      */
-    public function roles()
+    public function can($permission, $requireAll = false)
     {
-        return $this->belongsToMany('App\Models\Role');
+        if ($this->hasRole('Root User')) {
+            return true;
+        }
+
+        return $this->EntrustUserTraitCan($permission, $requireAll);
     }
 }

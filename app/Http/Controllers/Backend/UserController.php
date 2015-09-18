@@ -53,7 +53,7 @@ class UserController extends BackendBaseController
      */
     public function create()
     {
-        $data['roles'] = $this->roleRepo->findWhere([['id','!=','1']], ['id', 'role_title']);
+        $data['roles'] = $this->roleRepo->findWhere([['id','!=','1']], ['id', 'display_name']);
 
         $this->theme->breadcrumb()->add('Create', route('backend.user.create.get'));
         return $this->theme->scope('user.create', $data)->render();
@@ -102,7 +102,7 @@ class UserController extends BackendBaseController
         try {
             $data['user'] = $this->userRepo->find($id);
 
-            $data['roles'] = $this->roleRepo->findWhere([['id','!=','1']], ['id', 'role_title']);
+            $data['roles'] = $this->roleRepo->findWhere([['id','!=','1']], ['id', 'display_name']);
 
             $this->theme->breadcrumb()->add('Edit', route('backend.user.edit.get', $id));
             return $this->theme->scope('user.edit', $data)->render();

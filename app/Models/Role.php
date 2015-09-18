@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Zizaco\Entrust\EntrustRole;
 
-class Role extends Model implements Transformable
+class Role extends EntrustRole implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = ['role_title', 'role_slug'];
-
     /**
-     * The database table used by the model.
+     * The attributes that are mass assignable.
      *
-     * @var string
+     * @var array
      */
-    protected $table = 'roles';
+    protected $fillable = ['name', 'display_name', 'description'];
 
     /**
      * Indicates if the model should be timestamped.
@@ -26,29 +25,4 @@ class Role extends Model implements Transformable
      */
     public $timestamps = false;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Relationship Methods
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * many-to-many relationship method.
-     *
-     * @return QueryBuilder
-     */
-    public function users()
-    {
-        return $this->belongsToMany('App\Models\User');
-    }
-
-    /**
-     * many-to-many relationship method.
-     *
-     * @return QueryBuilder
-     */
-    public function permissions()
-    {
-        return $this->belongsToMany('App\Models\Permission');
-    }
 }

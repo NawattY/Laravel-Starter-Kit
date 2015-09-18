@@ -150,6 +150,7 @@ return [
          */
         'Teepluss\Theme\ThemeServiceProvider',
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        'Zizaco\Entrust\EntrustServiceProvider',
     ],
 
     /*
@@ -203,6 +204,7 @@ return [
          * 3rd Party Packages
          */
         'Theme' => 'Teepluss\Theme\Facades\Theme',
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
     ],
 
 ];
