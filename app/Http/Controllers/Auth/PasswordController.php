@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BackendBaseController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class PasswordController extends BackendBaseController
 {
@@ -46,8 +48,30 @@ class PasswordController extends BackendBaseController
         return $this->theme->scope('auth.password-reset', $data)->render();
     }
 
-    public function redirectPath()
+    public function postReset(Request $request)
     {
-        return route('auth.login.get');
+        $this->validate($request, [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $credentials = $request->only(
+            'email', 'password', 'password_confirmation', 'token'
+        );
+
+        $response = Password::reset($credentials, function ($user, $password) {
+            $this->resetPassword($user, $password);
+        });
+
+        switch ($response) {
+            case Password::PASSWORD_RESET:
+                \Auth::logout();
+                return redirect()->route('auth.login.get')->withMessages(['success' => ['Your account has bees successfully reset.']]);
+            default:
+                return redirect()->back()
+                    ->withInput($request->only('email'))
+                    ->withErrors(['email' => trans($response)]);
+        }
     }
 }

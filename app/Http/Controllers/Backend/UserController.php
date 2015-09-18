@@ -67,7 +67,7 @@ class UserController extends BackendBaseController
      */
     public function store(Request $request)
     {
-        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role']);
+        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role', 'active']);
 
         try {
             $this->userRepo->create($input);
@@ -125,7 +125,7 @@ class UserController extends BackendBaseController
      */
     public function update(Request $request, $id)
     {
-        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role']);
+        $input = $request->only(['first_name', 'last_name', 'email', 'password', 'password_confirmation', 'role', 'active']);
 
         try {
             $this->userRepo->update($input, $id);

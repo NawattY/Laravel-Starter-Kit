@@ -13,6 +13,18 @@
                 </ul>
             </div>
         @endif
+
+        @if (Session::has('messages'))
+            @foreach (Session::get('messages') as $key => $val)
+                <div class="alert alert-{{ $key }} alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @foreach ($val as $message)
+                        <p>{{ $message }}</p>
+                    @endforeach
+                </div>
+            @endforeach
+        @endif
+
         <form action="{{ route('auth.login.post') }}" method="post">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             <div class="form-group has-feedback">

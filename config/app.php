@@ -91,11 +91,11 @@ return [
     | the box, Laravel uses the Monolog PHP logging library. This gives
     | you a variety of powerful log handlers / formatters to utilize.
     |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
+    | Available Settings: "single", "daily", "syslog", "errorlog", 'custom'
     |
     */
 
-    'log' => 'custom',
+    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------

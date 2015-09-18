@@ -66,6 +66,14 @@
                             </select>
                         </div>
                         @endif
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="active" value="1" <?php if (old('active', $user->active)) { echo 'checked="checked"'; } ?>>
+                                    Active
+                                </label>
+                            </div>
+                        </div>
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                         <a href="{{ route('backend.user.index.get') }}" class="btn btn-default">Cancel</a>

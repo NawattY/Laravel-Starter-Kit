@@ -8,6 +8,7 @@ use Redirect;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends BackendBaseController
 {
@@ -86,5 +87,30 @@ class AuthController extends BackendBaseController
         $data = array();
         $data['error'] = \Session::get('error');
         return $this->theme->scope('auth.register', $data)->render();
+    }
+
+    public function authenticated(Request $request)
+    {
+        if (\Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password'), 'active' => 1])) {
+            return redirect()->route('backend.dashboard.index.get');
+        } else {
+            \Auth::logout();
+            return redirect()->route('auth.login.get')->withErrors(['Your account is not active, please contact administrator.']);
+        }
+    }
+
+    public function postRegister(Request $request)
+    {
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $this->create($request->all());
+
+        return redirect()->route('auth.login.get')->withMessages(['success' => ['You has bees successfully registered, please wait administrator to activate your account']]);
     }
 }

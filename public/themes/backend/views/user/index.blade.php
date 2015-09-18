@@ -41,6 +41,7 @@
                             <th>Lastname</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Status</th>
                             <th>Manage</th>
                         </tr>
                         @forelse($users as $user)
@@ -61,6 +62,7 @@
                                         @endif
                                     @endforeach
                                 </td>
+                                <td>{{ $user->active ? 'active' : 'inactive' }}</td>
                                 <td>
                                     @if (Auth::user()->can('user-update'))
                                     <a href="{{ route('backend.user.edit.get', $user->id) }}" class="btn btn-warning inline"><i class="fa fa-edit"></i> Edit</a>

@@ -102,6 +102,10 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
             $input['password'] = bcrypt($input['password']);
         }
 
+        if (empty($input['active'])) {
+            $input['active'] = '0';
+        }
+
         $user = parent::update(array_except($input, ['role', 'password_confirmation']), $id);
 
         if ($id != 1) {
