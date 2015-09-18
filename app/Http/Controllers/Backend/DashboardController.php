@@ -14,6 +14,8 @@ class DashboardController extends BackendBaseController
      */
     public function index()
     {
+//        \Log::info('oops', ['name' => 'Tee++;']);
+
         return $this->theme->scope('dashboard.index')->render();
     }
 
