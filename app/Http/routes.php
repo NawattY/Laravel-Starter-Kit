@@ -43,6 +43,26 @@ Route::group(['as' => 'auth.', 'prefix' => 'auth', 'namespace' => 'Auth'], funct
         'as' => 'register.post',
         'uses' => 'AuthController@postRegister'
     ));
+
+    // Password reset link request routes...
+    Route::get('password/forgot', array(
+        'as' => 'password.forgot.get',
+        'uses' => 'PasswordController@getEmail'
+    ));
+    Route::post('password/forgot', array(
+        'as' => 'password.forgot.post',
+        'uses' => 'PasswordController@postEmail'
+    ));
+
+    // Password reset routes...
+    Route::get('password/reset/{token}', array(
+        'as' => 'password.reset.get',
+        'uses' => 'PasswordController@getReset'
+    ));
+    Route::post('password/reset', array(
+        'as' => 'password.reset.post',
+        'uses' => 'PasswordController@postReset'
+    ));
 });
 
 Route::group(['as' => 'backend.', 'namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => ['auth', 'acl']], function () {

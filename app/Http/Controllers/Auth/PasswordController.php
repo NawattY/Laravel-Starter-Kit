@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Backend\BackendBaseController;
+use App\Http\Controllers\BackendBaseController;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends BackendBaseController
@@ -20,13 +20,34 @@ class PasswordController extends BackendBaseController
 
     use ResetsPasswords;
 
-    /**
-     * Create a new password controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('guest');
+    }
+
+    public function getEmail()
+    {
+        $data = array();
+        $data['error'] = \Session::get('error');
+        return $this->theme->scope('auth.password-forgot', $data)->render();
+    }
+
+    public function getReset($token = null)
+    {
+        if (is_null($token)) {
+            throw new NotFoundHttpException;
+        }
+
+        $data = array();
+        $data['error'] = \Session::get('error');
+        $data['token'] = $token;
+        return $this->theme->scope('auth.password-reset', $data)->render();
+    }
+
+    public function redirectPath()
+    {
+        return route('auth.login.get');
     }
 }

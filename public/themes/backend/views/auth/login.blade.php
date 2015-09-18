@@ -43,7 +43,7 @@
             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
         </div><!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
+        <a href="{{ route('auth.password.forgot.get') }}">I forgot my password</a><br>
         <a href="{{ route('auth.register.get') }}" class="text-center">Register a new membership</a>
 
     </div><!-- /.login-box-body -->

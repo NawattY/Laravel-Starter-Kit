@@ -14,7 +14,7 @@ class BackendBaseController extends Controller
 
     public function __construct()
     {
-        if (get_class($this) == 'App\Http\Controllers\Auth\AuthController')
+        if (get_class($this) == 'App\Http\Controllers\Auth\AuthController' || get_class($this) == 'App\Http\Controllers\Auth\PasswordController')
         {
             $this->theme = Theme::uses('backend')->layout('auth');
         }
