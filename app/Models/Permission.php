@@ -17,11 +17,4 @@ class Permission extends EntrustPermission implements Transformable
      * @var array
      */
     protected $fillable = ['name', 'display_name', 'description'];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 }
