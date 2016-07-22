@@ -1,0 +1,15 @@
+{
+	"name": "golfer007/backend",
+	"description": "",
+	"authors": [
+		{
+			"name": "Nawattapon Y.",
+			"email": "golf.enfc40@gmail.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Modules\\Backend\\": ""
+		}
+	}
+}

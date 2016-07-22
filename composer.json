@@ -6,7 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "nwidart/laravel-modules": "^0.6.0",
+        "caffeinated/themes": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -20,7 +22,8 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Modules\\": "modules/"
         }
     },
     "autoload-dev": {

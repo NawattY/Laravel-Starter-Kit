@@ -158,6 +158,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * 3rd Parties...
+         */
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
+        Caffeinated\Themes\ThemesServiceProvider::class,
     ],
 
     /*
@@ -204,6 +209,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * 3rd Parties...
+         */
+        'Module' => Nwidart\Modules\Facades\Module::class,
+        'Theme' => Caffeinated\Themes\Facades\Theme::class,
+        'Component' => Caffeinated\Themes\Facades\Component::class,
     ],
 
 ];
