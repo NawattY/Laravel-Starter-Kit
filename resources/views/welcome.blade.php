@@ -16,7 +16,7 @@
                 width: 100%;
                 display: table;
                 font-weight: 100;
-                font-family: 'Lato';
+                font-family: 'Lato', sans-serif;
             }
 
             .container {
@@ -39,8 +39,6 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
-                <hr />
-                Environment : {{ App::environment() }}
             </div>
         </div>
     </body>
