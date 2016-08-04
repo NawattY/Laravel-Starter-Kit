@@ -8,6 +8,6 @@ class BackendController extends BaseBackendController
 {
 	public function index()
 	{
-        return Theme::view('index');
+        return view('index');
 	}
 }

@@ -1,7 +1,4 @@
 {
-  "slug": "frontend",
-  "name": "Frontend Theme",
-  "author": "Nawattapon Y.",
-  "description": "This is a Frontend Theme.",
-  "version": "1.0.0"
+  "name": "Backend",
+  "description": "This is my theme. There are many like it, but this one is mine."
 }

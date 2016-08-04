@@ -1,83 +1,97 @@
 <?php
 
 return [
-	
-	/*
-	|--------------------------------------------------------------------------
-	| Default Active Theme
-	|--------------------------------------------------------------------------
-	|
-	| Assign the default active theme to be used if one is not set during
-	| runtime. This is especially useful if you're developing a very basic
-	| application that does not require dynamically changing the theme.
-	|
-	*/
-
-	'active' => 'frontend',
-	
-	/*
-	|--------------------------------------------------------------------------
-	| Templating Engine
-	|--------------------------------------------------------------------------
-	|
-	| Switch between using either Blade or Twig as youe templating engine. To
-	| use Twig, be sure to install the twigbridge package and register its
-	| service provider BEFORE the Caffeinated Themes service provider.
-	|
-	| Available Settings: "blade", "twig"
-	|
-	*/
-
-	'engine' => 'blade',
 
 	/*
 	|--------------------------------------------------------------------------
-	| Theme Paths
+	| Switch this package on/off. Usefull for testing...
 	|--------------------------------------------------------------------------
-	|
 	*/
 
-	'paths' => [
+	'enabled' => true,
 
-		/*
-		|----------------------------------------------------------------------
-		| Absolute Path
-		|----------------------------------------------------------------------
-		|
-		| Define the absolute path where you'd like to store your themes. Note
-		| that if you choose a path that's outside of your public directory, you
-		| will still need to store your assets within your public directory.
-		|
-		*/
+    /*
+    |--------------------------------------------------------------------------
+    | File path where themes will be located.
+    | Can be outside default views path EG: resources/themes
+    | Leave it null if you place your themes in the default views folder 
+    | (as defined in config\views.php)
+    |--------------------------------------------------------------------------
+    */
 
-		'absolute' => public_path('themes'),
+    'themes_path' => realpath(public_path('themes')), // eg: realpath(base_path('resources/themes'))
 
-		/*
-		|----------------------------------------------------------------------
-		| Base Path
-		|----------------------------------------------------------------------
-		|
-		| Define the base path where your themes will be publically available.
-		| This is used to generate the correct URL when utilizing both the
-		| asset() and secureAsset() methods.
-		|
-		*/
+	/*
+	|--------------------------------------------------------------------------
+	| Set behavior if an asset is not found in a Theme hierarcy.
+	| Available options: THROW_EXCEPTION | LOG_ERROR | ASSUME_EXISTS | IGNORE
+	|--------------------------------------------------------------------------
+	*/
 
-		'base' => 'themes',
+	'asset_not_found' => 'THROW_EXCEPTION',
 
-		/*
-		|----------------------------------------------------------------------
-		| Assets Path
-		|----------------------------------------------------------------------
-		|
-		| Define the path that will store all assets for each of your themes.
-		| This is used to generate the correct URL when utilizing both the
-		| asset() and secureAsset() methods.
-		|
-		*/
+	/*
+	|--------------------------------------------------------------------------
+	| Set the Active Theme. Can be set at runtime with:
+	|  Themes::set('theme-name');
+	|--------------------------------------------------------------------------
+	*/
 
-		'assets' => 'assets',
+	'active' => 'default',
 
-	]
+	/*
+	|--------------------------------------------------------------------------
+	| Define available themes. Format:
+	|
+	| 	'theme-name' => [
+	| 		'extends'	 	=> 'theme-to-extend',  // optional
+	| 		'views-path' 	=> 'path-to-views',    // defaults to: resources/views/theme-name
+	| 		'asset-path' 	=> 'path-to-assets',   // defaults to: public/theme-name
+	|
+	|		// you can add your own custom keys and retrieve them with Theme::config('key');
+	| 		'key' 			=> 'value', 
+	| 	],
+	|
+	|--------------------------------------------------------------------------
+	*/
+
+	'themes' => [
+
+		'default' => [
+			'extends'	 	=> null,
+			'views-path' 	=> 'default/views',
+			'asset-path' 	=> 'themes/default/assets',
+		],
+
+        'backend' => [
+            'extends'	 	=> 'default',
+            'views-path' 	=> 'backend/views',
+            'asset-path' 	=> 'themes/backend/assets',
+        ],
+
+		// Add your themes here...
+
+		/*--------------[ Example Structre ]-------------
+
+			// Recomended (all defaults) : Assets -> \public\BasicTheme , Views -> \resources\views\BasicTheme
+
+			'BasicTheme',
+
+
+			// This theme shares the views with BasicTheme but defines its own assets in \public\SomeTheme
+
+			'SomeTheme' => [
+				'views-path'	=> 'BasicTheme',
+			],
+
+
+			// This theme extends BasicTheme and ovverides SOME views\assets in its folders
+
+			'AnotherTheme' => [
+				'extends'	=> 'BasicTheme',
+			],
+
+		------------------------------------------------*/
+	],
 
 ];

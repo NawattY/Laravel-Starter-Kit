@@ -162,7 +162,7 @@ return [
          * 3rd Parties...
          */
         Nwidart\Modules\LaravelModulesServiceProvider::class,
-        Caffeinated\Themes\ThemesServiceProvider::class,
+        igaster\laravelTheme\themeServiceProvider::class,
     ],
 
     /*
@@ -213,8 +213,7 @@ return [
          * 3rd Parties...
          */
         'Module' => Nwidart\Modules\Facades\Module::class,
-        'Theme' => Caffeinated\Themes\Facades\Theme::class,
-        'Component' => Caffeinated\Themes\Facades\Component::class,
+        'Theme' => igaster\laravelTheme\Facades\Theme::class,
     ],
 
 ];

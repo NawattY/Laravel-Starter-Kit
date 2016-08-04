@@ -1,1 +1,1 @@
-@extends('backend::layout.main')
+@extends('layout.main')

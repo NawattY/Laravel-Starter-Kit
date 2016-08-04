@@ -9,6 +9,6 @@ class BaseBackendController extends Controller
 {
 	public function __construct()
 	{
-        Theme::setActive('backend');
-	}
+        Theme::set('backend');
+    }
 }

@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "nwidart/laravel-modules": "^0.6.0",
-        "caffeinated/themes": "^2.0"
+        "igaster/laravel-theme": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
