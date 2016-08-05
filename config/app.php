@@ -163,6 +163,7 @@ return [
          */
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         igaster\laravelTheme\themeServiceProvider::class,
+        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
     ],
 
     /*
@@ -214,6 +215,9 @@ return [
          */
         'Module' => Nwidart\Modules\Facades\Module::class,
         'Theme' => igaster\laravelTheme\Facades\Theme::class,
+        'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
+        'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
+        'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
     ],
 
 ];

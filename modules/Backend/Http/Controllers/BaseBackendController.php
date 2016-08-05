@@ -9,6 +9,6 @@ class BaseBackendController extends Controller
 {
 	public function __construct()
 	{
-        Theme::set('backend');
+        Theme::set('backend_adminlte');
     }
 }

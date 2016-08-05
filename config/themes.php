@@ -28,7 +28,7 @@ return [
 	|--------------------------------------------------------------------------
 	*/
 
-	'asset_not_found' => 'THROW_EXCEPTION',
+	'asset_not_found' => 'LOG_ERROR',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,16 +57,28 @@ return [
 
 	'themes' => [
 
-		'default' => [
+		'backend_default' => [
 			'extends'	 	=> null,
-			'views-path' 	=> 'default/views',
-			'asset-path' 	=> 'themes/default/assets',
+			'views-path' 	=> 'backend/default/views',
+			'asset-path' 	=> 'themes/backend/default/assets',
 		],
 
-        'backend' => [
-            'extends'	 	=> 'default',
-            'views-path' 	=> 'backend/views',
-            'asset-path' 	=> 'themes/backend/assets',
+        'backend_adminlte' => [
+            'extends'	 	=> 'backend_default',
+            'views-path' 	=> 'backend/adminlte/views',
+            'asset-path' 	=> 'themes/backend/adminlte/assets',
+        ],
+
+        'frontend_default' => [
+            'extends'	 	=> null,
+            'views-path' 	=> 'frontend/default/views',
+            'asset-path' 	=> 'themes/frontend/default/assets',
+        ],
+
+        'frontend_template_1' => [
+            'extends'	 	=> 'frontend_default',
+            'views-path' 	=> 'frontend/template_1/views',
+            'asset-path' 	=> 'themes/frontend/template_1/assets',
         ],
 
 		// Add your themes here...
